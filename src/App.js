@@ -24,6 +24,13 @@ class App {
           visible: true,
           image,
         });
+
+        api.fetchCat(image.id).then(({ data }) => {
+          this.imageInfo.setState({
+            visible: true,
+            image: { ...image, ...data },
+          });
+        });
       },
     });
 

@@ -102,6 +102,14 @@ html {
   width: 100%;
 }
 
+@media only screen and (max-width: 768px) {
+  .ImageInfo .content-wrapper {
+    width: 98vw;
+    left: 0%;
+    transform: translateX(0%) translateY(-50%);
+  }
+}
+
 /* 다크모드 */
 body.dark,
 .dark .ImageInfo .content-wrapper {

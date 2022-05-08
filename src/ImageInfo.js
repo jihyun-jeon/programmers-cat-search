@@ -11,6 +11,7 @@ class ImageInfo {
     this.data = data;
 
     this.render();
+    this.bindEvents();
   }
 
   setState(nextData) {
@@ -38,5 +39,23 @@ class ImageInfo {
     } else {
       this.$imageInfo.style.display = "none";
     }
+  }
+
+  bindEvents() {
+    document.addEventListener("keyup", (e) => {
+      if (e.key === "Escape") {
+        this.close();
+      }
+    });
+    this.$imageInfo.addEventListener("click", ({ target }) => {
+      if (target.className === "close" || target.className === "ImageInfo") {
+        this.close();
+      }
+    });
+  }
+
+  close() {
+    this.data.visible = false;
+    this.render();
   }
 }
