@@ -12,13 +12,16 @@ class App {
     this.searchInput = new SearchInput({
       $target,
       onSearch: (keyword) => {
-        api.fetchCats(keyword).then(({ data }) => this.setState(data));
+        this.searchResult.setState({ status: "loading" });
+        api
+          .fetchCats(keyword)
+          .then(({ data }) => this.setState({ status: "done", list: data }));
       },
     });
 
     this.searchResult = new SearchResult({
       $target,
-      initialData: this.data,
+      initialData: { status: "wait", list: this.data },
       onClick: (_data) => {
         this.imageInfo.setState(_data);
 

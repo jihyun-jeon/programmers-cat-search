@@ -20,20 +20,27 @@ class SearchResult {
   }
 
   render() {
-    this.$searchResult.innerHTML = this.data
-      .map(
-        (cat) => `
+    console.log(this.data);
+    if (this.data.status === "wait") {
+      this.$searchResult.innerHTML = ``;
+    } else if (this.data.status === "loading") {
+      this.$searchResult.innerHTML = `로딩 중...`;
+    } else {
+      this.$searchResult.innerHTML = this.data.list
+        .map(
+          (cat) => `
           <div class="item">
             <img src=${cat.url} alt=${cat.name} />
           </div>
         `
-      )
-      .join("");
+        )
+        .join("");
 
-    this.$searchResult.querySelectorAll(".item").forEach(($item, index) => {
-      $item.addEventListener("click", () => {
-        this.onClick(this.data[index]);
+      this.$searchResult.querySelectorAll(".item").forEach(($item, index) => {
+        $item.addEventListener("click", () => {
+          this.onClick(this.data.list[index]);
+        });
       });
-    });
+    }
   }
 }
