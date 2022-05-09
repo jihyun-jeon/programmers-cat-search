@@ -19,17 +19,19 @@ class App {
     this.searchResult = new SearchResult({
       $target,
       initialData: this.data,
-      onClick: (image) => {
-        this.imageInfo.setState({
-          visible: true,
-          image,
-        });
+      onClick: (_data) => {
+        this.imageInfo.setState(_data);
 
-        api.fetchCat(image.id).then(({ data }) => {
-          this.imageInfo.setState({
-            visible: true,
-            image: { ...image, ...data },
-          });
+        api.fetchCat(_data.id).then(({ data }) => {
+          if (this.imageInfo.visible === false) {
+            return;
+          }
+
+          if (this.imageInfo.data.id !== data.id) {
+            return;
+          }
+
+          this.imageInfo.setState({ ..._data, ...data });
         });
       },
     });

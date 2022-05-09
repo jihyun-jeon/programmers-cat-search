@@ -1,16 +1,23 @@
+/**
+ *
+ * data = {고양이 정보 }
+ *
+ */
+
 class ImageInfo {
   $imageInfo = null;
   data = null;
+  visible = false;
 
   constructor({ $target, data }) {
     const $imageInfo = document.createElement("div");
     $imageInfo.className = "ImageInfo";
+    $imageInfo.style.display = "none";
     this.$imageInfo = $imageInfo;
     $target.appendChild($imageInfo);
 
     this.data = data;
 
-    this.render();
     this.bindEvents();
   }
 
@@ -20,10 +27,13 @@ class ImageInfo {
   }
 
   render() {
-    if (this.data.visible) {
-      const { name, url, temperament, origin } = this.data.image;
+    if (!this.data) {
+      return;
+    }
 
-      this.$imageInfo.innerHTML = `
+    const { name, url, temperament, origin } = this.data;
+
+    this.$imageInfo.innerHTML = `
         <div class="content-wrapper">
           <h1 class="title">
             <span>${name}</span>
@@ -35,10 +45,10 @@ class ImageInfo {
             <li>태생: ${origin}</li>
           </ul>
         </div>`;
-      this.$imageInfo.style.display = "block";
-    } else {
-      this.$imageInfo.style.display = "none";
-    }
+    this.$imageInfo.style.display = "block";
+    this.visible = true;
+    this.$imageInfo.classList.add("fadeinAni");
+    this.$imageInfo.classList.remove("fadeoutAni");
   }
 
   bindEvents() {
@@ -55,7 +65,11 @@ class ImageInfo {
   }
 
   close() {
-    this.data.visible = false;
-    this.render();
+    this.visible = false;
+    this.$imageInfo.classList.add("fadeoutAni");
+    this.$imageInfo.classList.remove("fadeinAni");
+    setTimeout(() => {
+      this.$imageInfo.style.display = "none";
+    }, 2000);
   }
 }
