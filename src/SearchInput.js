@@ -16,6 +16,8 @@ class SearchInput {
     });
 
     console.log("SearchInput created.", this);
+
+    this.$searchInput.focus();
   }
   render() {}
 }
