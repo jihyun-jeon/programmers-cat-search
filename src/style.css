@@ -69,6 +69,25 @@ html {
   padding: 10px 15px;
 }
 
+.fiveUl {
+  display: flex;
+  justify-content: right;
+  padding: 20px 30px;
+}
+
+.fiveUl li {
+  list-style: none;
+  padding: 0 20px;
+}
+
+.fiveUl li button {
+  padding: 0px 20px;
+  border-radius: 5px;
+  background-color: #eee;
+  color: #000;
+  cursor: pointer;
+}
+
 .ImageInfo {
   position: fixed;
   left: 0;
