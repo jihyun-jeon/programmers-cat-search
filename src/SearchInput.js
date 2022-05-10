@@ -5,6 +5,7 @@ class SearchInput {
     this.onSearch = onSearch;
 
     const $searchInput = document.createElement("input");
+    $searchInput.value = localStorage.getItem("recent-search") || "";
     this.$searchInput = $searchInput;
     this.$searchInput.placeholder = "고양이를 검색해보세요.|";
 
@@ -18,9 +19,10 @@ class SearchInput {
         }
 
         this.fivrArr.push(e.target.value);
+        localStorage.setItem("recent-list", JSON.stringify(this.fivrArr));
 
-        onSearch(e.target.value);
-        //
+        this.search(e.target.value);
+
         this.five();
       }
     });
@@ -30,10 +32,13 @@ class SearchInput {
     this.$searchInput.focus();
 
     // <최근검색어 만들기>
-    this.fivrArr = [];
+    const savedList = localStorage.getItem("recent-list");
+    this.fivrArr = savedList ? JSON.parse(savedList) : [];
     this.fiveUl = document.createElement("ul");
     this.fiveUl.className = "fiveUl";
     $target.appendChild(this.fiveUl);
+
+    this.five();
 
     this.bindEvents();
   }
@@ -55,8 +60,13 @@ class SearchInput {
 
       const { innerText: newValue } = target;
 
-      this.onSearch(newValue);
+      this.search(newValue);
       this.$searchInput.value = newValue;
     });
+  }
+
+  search(text) {
+    this.onSearch(text);
+    localStorage.setItem("recent-search", text);
   }
 }

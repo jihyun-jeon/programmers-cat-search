@@ -9,6 +9,11 @@ class SearchResult {
     $target.appendChild(this.$searchResult);
 
     this.data = initialData;
+
+    if (localStorage.getItem("data")) {
+      this.data = JSON.parse(localStorage.getItem("data"));
+    }
+
     this.onClick = onClick;
 
     this.render();
@@ -16,11 +21,11 @@ class SearchResult {
 
   setState(nextData) {
     this.data = nextData;
+    localStorage.setItem("data", JSON.stringify(this.data));
     this.render();
   }
 
   render() {
-    console.log(this.data);
     if (this.data.status === "wait") {
       this.$searchResult.innerHTML = ``;
     } else if (this.data.status === "loading") {
