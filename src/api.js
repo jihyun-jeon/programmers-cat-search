@@ -10,4 +10,7 @@ const api = {
 
   fetchCat: (id) =>
     fetch(`${API_ENDPOINT}/api/cats/${id}`).then((res) => res.json()),
+
+  random50: () =>
+    fetch(`${API_ENDPOINT}/api/cats/random50`).then((res) => res.json()),
 };

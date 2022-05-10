@@ -17,6 +17,11 @@ class App {
           .fetchCats(keyword)
           .then(({ data }) => this.setState({ status: "done", list: data }));
       },
+      onClickRandom: () => {
+        api
+          .random50()
+          .then(({ data }) => this.setState({ status: "done", list: data }));
+      },
     });
 
     this.searchResult = new SearchResult({

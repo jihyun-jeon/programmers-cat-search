@@ -69,6 +69,14 @@ html {
   padding: 10px 15px;
 }
 
+.SearchWrap {
+  display: flex;
+}
+
+.SearchBtn {
+  width: 100px;
+}
+
 .fiveUl {
   display: flex;
   justify-content: right;
