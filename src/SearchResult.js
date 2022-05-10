@@ -36,7 +36,7 @@ class SearchResult {
       this.$searchResult.innerHTML = this.data.list
         .map(
           (cat) => `
-          <div class="item">
+          <div class="item" data-name="${cat.name}">
             <img src=${cat.url} alt=${cat.name} loading="lazy" />
           </div>
         `
