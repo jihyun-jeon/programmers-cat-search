@@ -9,7 +9,12 @@ class App {
 
     /** 캐러셀 */
     this.carousel = new Carousel({ $target });
-    api.random50().then(({ data }) => this.carousel.setState(data.slice(0, 5)));
+
+    (async () => {
+      const { data } = api.random50();
+
+      this.carousel.setState(data.slice(0, 5));
+    })();
 
     /** 다크모드 */
     this.theme = new Theme({ $target });
@@ -17,37 +22,36 @@ class App {
     /** 검색창 */
     this.searchInput = new SearchInput({
       $target,
-      onSearch: (keyword) => {
+      onSearch: async (keyword) => {
         this.searchResult.setState({ status: "loading" });
-        api
-          .fetchCats(keyword)
-          .then(({ data }) => this.setState({ status: "done", list: data }));
+
+        const { data } = await api.fetchCats(keyword);
+
+        this.setState({ status: "done", list: data });
       },
-      onClickRandom: () => {
-        api
-          .random50()
-          .then(({ data }) => this.setState({ status: "done", list: data }));
-      },
+
+      onClickRandom: async () =>
+        this.setState({ status: "done", list: await api.random50() }),
     });
 
     /** 검색결과 */
     this.searchResult = new SearchResult({
       $target,
       initialData: { status: "wait", list: this.data },
-      onClick: (_data) => {
+      onClick: async (_data) => {
         this.imageInfo.setState(_data);
 
-        api.fetchCat(_data.id).then(({ data }) => {
-          if (this.imageInfo.visible === false) {
-            return;
-          }
+        const { data } = api.fetchCat(_data.id);
 
-          if (this.imageInfo.data.id !== data.id) {
-            return;
-          }
+        if (this.imageInfo.visible === false) {
+          return;
+        }
 
-          this.imageInfo.setState({ ..._data, ...data });
-        });
+        if (this.imageInfo.data.id !== data.id) {
+          return;
+        }
+
+        this.imageInfo.setState({ ..._data, ...data });
       },
     });
 

@@ -22,6 +22,10 @@ class Carousel {
   }
 
   render() {
+    if (!this.list.length) {
+      this.div.style.display = "none";
+    }
+
     this.ul.innerHTML = "";
 
     for (let item of this.list) {
