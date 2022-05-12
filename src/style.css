@@ -25,6 +25,46 @@ html {
   column-gap: 1.5em;
 }
 
+.CarouselWrapper {
+  width: 480px;
+  height: 200px;
+  overflow: hidden;
+  border: 1px solid #fff;
+  position: relative;
+}
+
+.CarouselWrapper button {
+  position: absolute;
+  z-index: 1;
+}
+
+.CarouselWrapper .left {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.CarouselWrapper .right {
+  top: 50%;
+  right: 0px;
+  transform: translateY(-50%);
+}
+
+.Carousel {
+  width: 2400px;
+  height: 200px;
+  margin: 0;
+  padding: 0;
+}
+
+.Carousel li {
+  display: inline-block;
+  width: 480px;
+  height: 200px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
 .SearchResult {
   margin-top: 10px;
   display: grid;

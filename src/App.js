@@ -7,8 +7,14 @@ class App {
   constructor($target) {
     this.$target = $target;
 
+    /** 캐러셀 */
+    this.carousel = new Carousel({ $target });
+    api.random50().then(({ data }) => this.carousel.setState(data.slice(0, 5)));
+
+    /** 다크모드 */
     this.theme = new Theme({ $target });
 
+    /** 검색창 */
     this.searchInput = new SearchInput({
       $target,
       onSearch: (keyword) => {
@@ -24,6 +30,7 @@ class App {
       },
     });
 
+    /** 검색결과 */
     this.searchResult = new SearchResult({
       $target,
       initialData: { status: "wait", list: this.data },
@@ -44,6 +51,9 @@ class App {
       },
     });
 
+    /**
+     * 팝업
+     */
     this.imageInfo = new ImageInfo({
       $target,
       data: {
